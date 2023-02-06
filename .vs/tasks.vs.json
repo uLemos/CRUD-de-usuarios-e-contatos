@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-Controllers",
+      "appliesTo": "ControleDeContatos/ControleDeContatos/Controllers/",
+      "type": "launch"
+    }
+  ]
+}

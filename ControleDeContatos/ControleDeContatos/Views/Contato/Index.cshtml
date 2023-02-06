@@ -1,0 +1,94 @@
+﻿
+@model List<ContatoModel>
+@{
+    ViewData["Title"] = "Listagem de contatos";
+}
+
+<style>
+    .btn-Add {
+        transition: .5s;
+    }
+
+        .btn-Add:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            transition: .5s;
+        }
+</style>
+
+<div class="text-center" style="color: #fff;" >
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start;">
+        <a class="btn btn-Add btn-info" role="button" asp-controller="Contato" asp-action="Criar">Adicionar novo contato</a>
+    </div>
+    <br />
+
+
+    @if(TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button style=" position: absolute; right: -10px; top: -15px; border-radius: 15px; width: 30px; height: 31px;"
+                type="button"
+                class="btn btn-danger btn-sm close-alert"
+                arial-label="Close">
+                X
+            </button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if(TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button 
+                style=" position: absolute; right: -10px; top: -15px; border-radius: 15px; width: 30px; height: 31px;"
+                type="button" 
+                class="btn btn-danger btn-sm close-alert" 
+                arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+ 
+    <br />
+
+    <h1 class="display-4" style="color: #fff; font-family: 'Rubik Vinyl', cursive; text-shadow: 0 0 0.2em #87F, 0 0 0.2em #87F,
+        0 0 0.2em #87F;">
+        Listagem de contatos
+    </h1>
+
+    <table class="table" id="table-contatos" style="width:100%; color: #fff;">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th> 
+                <th scope="col">E-mail</th>
+                <th scope="col">Celular</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach(ContatoModel contato in Model)
+                {
+                        <tr>
+                            <th scope="row">@contato.Id</th>
+                            <td>@contato.Nome</td>
+                            <td>@contato.Email</td>
+                            <td>@contato.Celular</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a role="button" class="btn btn-info" asp-route-id="@contato.Id" asp-controller="Contato" asp-action="Editar">Editar</a>
+                                    <a role="button" class="btn btn-danger" asp-route-id="@contato.Id" asp-controller="Contato" asp-action="ApagarConfirmacao">Apagar</a>
+                                </div>
+                            </td>
+                        </tr>
+                }
+            }
+            else
+            {
+                <tr class="odd"><td valign="top" colspan="5">Nenhum contato encontrado</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
